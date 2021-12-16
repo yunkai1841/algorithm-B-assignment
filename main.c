@@ -67,7 +67,11 @@ int editdis(char a[], int na, char b[], int nb){
 }
 
 int main(){
-    char x[51000], y[51000], s[51000], l[51000];
+    char x[51000], y[51000]; //observed data
+    char s[51000], l[51000]; //correct data
+
+    //idata is correct data
+    //odata is observed data
     read_data("all2/Model1/dat0/idata", x, y);
     read_data("all2/Model1/dat0/odata", s, l);
 
