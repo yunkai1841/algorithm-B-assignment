@@ -4,7 +4,7 @@
 
 #define FOPEN_ERROR -1
 #define SUCCESS 1
-
+#define TARGET_PER_STEP 10
 #define DP_ARRAY_MAX 20010
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
@@ -66,14 +66,60 @@ int editdis(char a[], int na, char b[], int nb){
     return dp[na][nb];
 }
 
+void printstring(char s[], int n){
+    int i;
+    for(i = 0; i < n; i++){
+        putchar(s[i]);
+    }
+    puts("");
+}
+
 int main(){
     char x[51000], y[51000]; //observed data
     char s[51000], l[51000]; //correct data
 
+    char e1[51000], e2[51000]; // correct answer
+    char a1[51000], a2[51000]; // my answer
+// - 正しく観測した場合は，'.'
+// - 余計な記録を追加した場合は，'i'
+// - 記録しそびれた場合は，'d'
+// - 記録間違いをした場合は，'s'
+
     //idata is correct data
     //odata is observed data
-    read_data("all2/Model1/dat0/idata", x, y);
-    read_data("all2/Model1/dat0/odata", s, l);
+    read_data("all2/Model1/dat1/idata", x, y);
+    read_data("all2/Model1/dat1/odata", s, l);
+    read_data("all2/Model1/dat1/edata", e1, e2);
+
+    int i, j;
+    int flag = 0;
+    for(i = 0; i < strlen(s)-TARGET_PER_STEP-1; i++){
+        printstring(s+i, TARGET_PER_STEP+1);
+        printstring(x+flag, TARGET_PER_STEP+1);
+
+        int correct = editdis(s+i, TARGET_PER_STEP, x+flag, TARGET_PER_STEP);
+        int yokei = editdis(s+i, TARGET_PER_STEP, x+flag+1, TARGET_PER_STEP);
+        int sobire = editdis(s+i+1, TARGET_PER_STEP, x+flag, TARGET_PER_STEP);
+        // int miss = editdis(s+i+1, TARGET_PER_STEP, x+flag+1, TARGET_PER_STEP);
+
+        // 判別
+        if(yokei < correct && yokei <= sobire){
+            // yokei
+            a1[i] = 'i'; flag+=2;
+        } else if(sobire < correct && sobire <= yokei){
+            // sobire
+            a1[i] = 'd';
+        } else{
+            // correct or miss
+            if (s[i] == x[flag]){
+                a1[i] = '.'; flag++;
+            } else {
+                a1[i] = 's'; flag++;
+            }            
+        }
+
+        printf("answer>%c, my>%c\n", e1[i], a1[i]);
+    }
 
     int d = editdis(x, 20000, s, 20000);
     printf("%d\n", d);
