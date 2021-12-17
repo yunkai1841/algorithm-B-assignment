@@ -75,8 +75,8 @@ void printstring(char s[], int n){
 }
 
 int main(){
-    char x[51000], y[51000]; //observed data
-    char s[51000], l[51000]; //correct data
+    char ss[51000], ll[51000]; //observed data
+    char x[51000], y[51000]; //correct data
 
     char e1[51000], e2[51000]; // correct answer
     char a1[51000], a2[51000]; // my answer
@@ -88,19 +88,19 @@ int main(){
     //idata is correct data
     //odata is observed data
     read_data("all2/Model1/dat1/idata", x, y);
-    read_data("all2/Model1/dat1/odata", s, l);
+    read_data("all2/Model1/dat1/odata", ss, ll);
     read_data("all2/Model1/dat1/edata", e1, e2);
 
     int i, j;
     int flag = 0;
     for(i = 0; i < 40000; i++){
-        printstring(s+i, TARGET_PER_STEP+1);
-        printstring(x+flag, TARGET_PER_STEP+1);
+        printstring(x+i, TARGET_PER_STEP+1);
+        printstring(ss+flag, TARGET_PER_STEP+1);
 
-        int correct = editdis(s+i, TARGET_PER_STEP, x+flag, TARGET_PER_STEP);
-        int yokei = editdis(s+i, TARGET_PER_STEP, x+flag+1, TARGET_PER_STEP);
-        int sobire = editdis(s+i+1, TARGET_PER_STEP, x+flag, TARGET_PER_STEP);
-        // int miss = editdis(s+i+1, TARGET_PER_STEP, x+flag+1, TARGET_PER_STEP);
+        int correct = editdis(x+i, TARGET_PER_STEP, ss+flag, TARGET_PER_STEP);
+        int yokei = editdis(x+i, TARGET_PER_STEP, ss+flag+1, TARGET_PER_STEP);
+        int sobire = editdis(x+i+1, TARGET_PER_STEP, ss+flag, TARGET_PER_STEP);
+        // int miss = editdis(s+i+1, TARGET_PER_STEP, ss+flag+1, TARGET_PER_STEP);
 
         // 判別
         if(yokei < correct && yokei <= sobire){
@@ -111,7 +111,7 @@ int main(){
             a1[i] = 'd';
         } else{
             // correct or miss
-            if (s[i] == x[flag]){
+            if (x[i] == ss[flag]){
                 a1[i] = '.'; flag++;
             } else {
                 a1[i] = 's'; flag++;
@@ -123,7 +123,7 @@ int main(){
 
     printstring(a1, 40000);
 
-    // int d = editdis(x, flag, s, i);
+    // int d = editdis(ss, flag, s, i);
     // printf("%d\n", d);
     return 0;
 
