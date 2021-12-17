@@ -97,9 +97,9 @@ int main(){
         printstring(x+i, TARGET_PER_STEP+1);
         printstring(ss+flag, TARGET_PER_STEP+1);
 
-        int correct = editdis(x+i, TARGET_PER_STEP, ss+flag, TARGET_PER_STEP);
-        int yokei = editdis(x+i, TARGET_PER_STEP, ss+flag+1, TARGET_PER_STEP);
-        int sobire = editdis(x+i+1, TARGET_PER_STEP, ss+flag, TARGET_PER_STEP);
+        int correct =editdis(x+i, TARGET_PER_STEP, ss+flag, TARGET_PER_STEP)+editdis(x+i, TARGET_PER_STEP+5, ss+flag, TARGET_PER_STEP+5)+editdis(x+i, TARGET_PER_STEP+10, ss+flag, TARGET_PER_STEP+10);
+        int yokei = editdis(x+i, TARGET_PER_STEP, ss+flag+1, TARGET_PER_STEP)+editdis(x+i, TARGET_PER_STEP+5, ss+flag+1, TARGET_PER_STEP+5)+editdis(x+i, TARGET_PER_STEP+10, ss+flag+1, TARGET_PER_STEP+10);
+        int sobire = editdis(x+i+1, TARGET_PER_STEP, ss+flag, TARGET_PER_STEP)+editdis(x+i+1, TARGET_PER_STEP+5, ss+flag, TARGET_PER_STEP+5)+editdis(x+i+1, TARGET_PER_STEP+10, ss+flag, TARGET_PER_STEP+10);
         // int miss = editdis(s+i+1, TARGET_PER_STEP, ss+flag+1, TARGET_PER_STEP);
 
         // 判別
