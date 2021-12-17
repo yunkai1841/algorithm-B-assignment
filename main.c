@@ -93,7 +93,7 @@ int main(){
 
     int i, j;
     int flag = 0;
-    for(i = 0; i < 10000; i++){
+    for(i = 0; i < 40000; i++){
         printstring(s+i, TARGET_PER_STEP+1);
         printstring(x+flag, TARGET_PER_STEP+1);
 
@@ -121,8 +121,10 @@ int main(){
         printf("answer>%c, my>%c\n", e1[i], a1[i]);
     }
 
-    int d = editdis(x, flag, s, i);
-    printf("%d\n", d);
+    printstring(a1, 40000);
+
+    // int d = editdis(x, flag, s, i);
+    // printf("%d\n", d);
     return 0;
 
 }
