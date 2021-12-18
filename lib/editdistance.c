@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int dp[10000][10000];
+#define DP_ARRAY_MAX 20010
+int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
 int not_equals(int a, int b){
     return a != b;
