@@ -5,7 +5,7 @@
 #define FOPEN_ERROR -1
 #define SUCCESS 1
 #define TARGET_PER_STEP 10
-#define DP_ARRAY_MAX 20010
+#define DP_ARRAY_MAX 21010
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
 int read_data(char filename[], char dat1[], char dat2[]){
@@ -87,13 +87,14 @@ int main(){
 
     //idata is correct data
     //odata is observed data
-    read_data("all2/Model1/dat1/idata", s, l);
-    read_data("all2/Model1/dat1/odata", x, y);
-    read_data("all2/Model1/dat1/edata", e1, e2);
+    read_data("all2/Model2/dat1/idata", s, l);
+    read_data("all2/Model2/dat1/odata", x, y);
+    read_data("all2/Model2/dat1/edata", e1, e2);
 
+    int score = 0;
     int i, j;
     int flag = 0;
-    for(i = 0; i < 40000; i++){
+    for(i = 0; i < 20000; i++){
         printstring(s+i, TARGET_PER_STEP+1);
         printstring(x+flag, TARGET_PER_STEP+1);
 
@@ -120,12 +121,14 @@ int main(){
 
         printf("answer>%c, my>%c\n", e1[i], a1[i]);
         printf("%d\n", e1[i] == a1[i]);
+        score += a1[i] == '.';
     }
 
     printstring(a1, 40000);
+    printf("%d\n", score);
 
-    // int d = editdis(x, flag, s, i);
-    // printf("%d\n", d);
+    int d = editdis(x, flag, s, i);
+    printf("%d\n", d);
     return 0;
 
 }
