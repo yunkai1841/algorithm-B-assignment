@@ -87,8 +87,8 @@ int main(){
 
     //idata is correct data
     //odata is observed data
-    read_data("all2/Model1/dat1/idata", x, y);
-    read_data("all2/Model1/dat1/odata", s, l);
+    read_data("all2/Model1/dat1/idata", s, l);
+    read_data("all2/Model1/dat1/odata", x, y);
     read_data("all2/Model1/dat1/edata", e1, e2);
 
     int i, j;
@@ -98,8 +98,8 @@ int main(){
         printstring(x+flag, TARGET_PER_STEP+1);
 
         int correct = editdis(s+i, TARGET_PER_STEP, x+flag, TARGET_PER_STEP);
-        int yokei = editdis(s+i, TARGET_PER_STEP, x+flag+1, TARGET_PER_STEP);
-        int sobire = editdis(s+i+1, TARGET_PER_STEP, x+flag, TARGET_PER_STEP);
+        int yokei = editdis(s+i, TARGET_PER_STEP, x+flag+1, TARGET_PER_STEP-1);
+        int sobire = editdis(s+i+1, TARGET_PER_STEP-1, x+flag, TARGET_PER_STEP);
         // int miss = editdis(s+i+1, TARGET_PER_STEP, x+flag+1, TARGET_PER_STEP);
 
         // 判別
@@ -119,6 +119,7 @@ int main(){
         }
 
         printf("answer>%c, my>%c\n", e1[i], a1[i]);
+        printf("%d\n", e1[i] == a1[i]);
     }
 
     printstring(a1, 40000);
