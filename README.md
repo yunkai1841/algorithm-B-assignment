@@ -8,8 +8,8 @@
 組み込み用の関数です。  
 |プログラム|用途|
 |:----|:----|
-|`editdistance.c`|編集距離|
-|`readfile.c`|ファイル読み込み|
-|`matching.c`|小さい配列が大きい配列のどこに当たるかマッチング|
-|`lcs.c`|最長共通部分列<br>このプログラムはパターンがに対応できないので使えない|
-|`edata_generator.c`|edata生成|
+|[`editdistance.c`](lib/editdistance.c)|編集距離|
+|[`readfile.c`](lib/readfile.c)|ファイル読み込み|
+|[`matching.c`](lib/matching.c)|小さい配列が大きい配列のどこに当たるかマッチング|
+|[`lcs.c`](lib/lcs.c)|最長共通部分列<br>このプログラムはパターンがに対応できないので使えない|
+|[`edata_generator.c`](lib/edata_generator.c)|edata生成|
