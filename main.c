@@ -92,7 +92,7 @@ source: 大きいchar配列
 */
 int matching(char target[], int ntarget, char source[], int nsource) {
     int i, j;
-    const int margin = ntarget / 2;
+    const int margin = ntarget / 10;
     int *d;
     d = (int *)calloc(nsource + 1, sizeof(int));
     int min_element = 0;
