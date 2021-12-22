@@ -86,7 +86,7 @@ source2: 大きいchar配列
 pair matching2(char target[], int ntarget, char source1[], char source2[],
                int nsource) {
     int i, j;
-    const int margin = ntarget / 2;
+    const int margin = ntarget / 10;
     int *d[2];
     d[0] = (int *)calloc(nsource + 1, sizeof(int));
     d[1] = (int *)calloc(nsource + 1, sizeof(int));
@@ -116,9 +116,9 @@ void printstring(char s[], int n) {
 
 int main() {
     // just for test
-    char target[100], source[2][50100];
+    char target[200], source[2][50100];
     scanf("%s%s%s", target, source[0], source[1]);
-    pair a = matching2(target, 20, source[0], source[1], 1000);
+    pair a = matching2(target, 20, source[0], source[1], 50);
     printf("%d %d\n", a.first, a.second);
     printstring(source[a.first]+a.second, 20);
     printstring(target, 20);
