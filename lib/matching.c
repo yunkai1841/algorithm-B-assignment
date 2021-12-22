@@ -94,6 +94,7 @@ pair matching2(char target[], int ntarget, char source1[], char source2[],
     for (i = 0; i < nsource; i++) {
         d[0][i] = editdis_min(target, ntarget, source1 + i, ntarget + margin);
         d[1][i] = editdis_min(target, ntarget, source2 + i, ntarget + margin);
+        printf("%d %d\n", d[0][i], d[1][i]);
         if (d[0][i] < d[min_element.first][min_element.second]) {
             min_element.first = 0;
             min_element.second = i;
@@ -116,10 +117,10 @@ void printstring(char s[], int n) {
 
 int main() {
     // just for test
-    char target[200], source[2][50100];
+    char target[51000], source[2][50100];
     scanf("%s%s%s", target, source[0], source[1]);
-    pair a = matching2(target, 20, source[0], source[1], 50);
+    pair a = matching2(target+30270, 20, source[0]+30250, source[1]+30250, 50);
     printf("%d %d\n", a.first, a.second);
     printstring(source[a.first]+a.second, 20);
-    printstring(target, 20);
+    printstring(target+30270, 20);
 }
