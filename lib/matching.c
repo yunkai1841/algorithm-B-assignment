@@ -72,10 +72,10 @@ int matching(char target[], int ntarget, char source[], int nsource) {
     return min_element;
 }
 
-typedef struct pair {
+typedef struct {
     int first;
     int second;
-};
+} pair;
 /*
 改良版小さな配列が2つの大きな配列のどの部分にあるか探索する
 source右端の動作は保証しない
@@ -83,17 +83,25 @@ target: 小さいchar配列
 source1: 大きいchar配列
 source2: 大きいchar配列
 */
-int matching2(char target[], int ntarget, char source1[], int nsource1,
-              char source2[], int nsource2) {
+pair matching2(char target[], int ntarget, char source1[], char source2[],
+               int nsource) {
     int i, j;
     const int margin = ntarget / 2;
-    int *d1, *d2;
-    d1 = (int *)calloc(nsource1 + 1, sizeof(int));
-    d2 = (int *)calloc(nsource2 + 1, sizeof(int));
-    int min_element = 0;
+    int *d[2];
+    d[0] = (int *)calloc(nsource + 1, sizeof(int));
+    d[1] = (int *)calloc(nsource + 1, sizeof(int));
+    pair min_element = {0, 0};
     for (i = 0; i < nsource; i++) {
-        d[i] = editdis_min(target, ntarget, source + i, ntarget + margin);
-        if (d[i] < d[min_element]) min_element = i;
+        d[0][i] = editdis_min(target, ntarget, source1 + i, ntarget + margin);
+        d[1][i] = editdis_min(target, ntarget, source2 + i, ntarget + margin);
+        if (d[0][i] < d[min_element.first][min_element.second]) {
+            min_element.first = 0;
+            min_element.second = i;
+        }
+        if (d[1][i] < d[min_element.first][min_element.second]) {
+            min_element.first = 1;
+            min_element.second = i;
+        }
     }
     return min_element;
 }
