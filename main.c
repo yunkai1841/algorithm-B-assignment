@@ -2,8 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DP_ARRAY_MAX 200
+#define DP_ARRAY_MAX 11000
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
+
+typedef struct {
+    int key;
+    int value;
+} item;
 
 int not_equals(int a, int b) { return a != b; }
 
@@ -84,6 +89,29 @@ int editdis_min(char a[], int na, char b[], int nb) {
     return result;
 }
 
+item *editdis_min_all(char a[], int na, char b[], int nb) {
+    int i, j;
+    item *result;
+    result = (item *)malloc(sizeof(item) * na);
+
+    // initialize result
+    // value max is around 50000
+    for (i = 0; i < na; i++) {
+        result[i].key = -1;
+        result[i].value = 100000;
+    }
+    editdis(a, na, b, nb);
+    for (i = 1; i <= na; i++) {
+        for (j = 0; j <= nb; j++){
+            if(dp[i][j] < result[i].value) {
+                result[i].key = j;
+                result[i].value = dp[i][j];
+            }
+        } 
+    }
+    return result;
+}
+
 /*
 小さな配列が大きな配列のどの部分にあるか探索する
 source右端の動作は保証しない
@@ -109,4 +137,10 @@ int main(int argc, char *argv[]) {
 
     read_data("all2/Model1/dat0/idata", x, y);  // arg[1]
     read_data("all2/Model1/dat0/odata", s, l);  // arg[2]
+
+    item * result = editdis_min_all(x, 1000, s, 1050);
+    int i, j;
+    for(i = 1; i <= 1000; i++){
+        printf("%d, %d, %d\n", i, result[i].key, result[i].value);
+    }
 }
