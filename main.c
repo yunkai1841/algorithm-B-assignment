@@ -14,12 +14,25 @@ int not_equals(int a, int b) { return a != b; }
 
 int min(int a, int b) { return a < b ? a : b; }
 
+// just for debug
 void printstring(char s[], int n) {
     int i;
     for (i = 0; i < n; i++) {
         putchar(s[i]);
     }
     puts("");
+}
+
+// just for debug
+void fileout_array2(int *a[], int n, int m){
+    FILE *fp = fopen("array.csv", "w");
+    int i, j;
+    for (i = 0; i < n; i++){
+        for (j = 0; j < m; j++){
+            fprintf(fp, "%d, ", dp[i][j]);
+        }
+        fprintf(fp, "\n");
+    }
 }
 
 #define FOPEN_ERROR -1
@@ -96,7 +109,7 @@ item *editdis_min_all(char a[], int na, char b[], int nb) {
 
     // initialize result
     // value max is around 50000
-    for (i = 0; i < na; i++) {
+    for (i = 0; i <= na; i++) {
         result[i].key = -1;
         result[i].value = 100000;
     }
@@ -143,4 +156,5 @@ int main(int argc, char *argv[]) {
     for(i = 1; i <= 1000; i++){
         printf("%d, %d, %d\n", i, result[i].key, result[i].value);
     }
+    fileout_array2(dp, 1001, 1051);
 }
