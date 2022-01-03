@@ -35,6 +35,14 @@ void fileout_array2(int *a[], int n, int m){
     }
 }
 
+void strreverse(char *dest, char *src){
+    int i;
+    int n = strlen(src);
+    for(i = 0; i < n; i++){
+        dest[i] = src[n-i-1];
+    }
+}
+
 #define FOPEN_ERROR -1
 #define SUCCESS 1
 
