@@ -5,7 +5,7 @@
 #define DP_ARRAY_MAX 11000
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
-typedef struct {
+typedef struct item {
     int key;
     int value;
 } item;
@@ -69,6 +69,10 @@ nb: bの長さ
 */
 int editdis(char a[], int na, char b[], int nb) {
     int i, j;
+    //debug
+    // printf("editdis debug >>\n");
+    // printstring(a, na);
+    // printstring(b, nb);
 
     for (i = 0; i <= na; i++) {
         dp[i][0] = i;
@@ -84,6 +88,7 @@ int editdis(char a[], int na, char b[], int nb) {
                            min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
         }
     }
+    // printf("%c %c\n\n", a[0], a[na-1]);
     return dp[na][nb];
 }
 
@@ -151,10 +156,27 @@ int main(int argc, char *argv[]) {
     read_data("all2/Model1/dat0/idata", x, y);  // arg[1]
     read_data("all2/Model1/dat0/odata", s, l);  // arg[2]
 
-    item * result = editdis_min_all(x, 1000, s, 1050);
     int i, j;
-    for(i = 1; i <= 1000; i++){
-        printf("%d, %d, %d\n", i, result[i].key, result[i].value);
+    item * result[5];
+    int dx=0, ds=0;
+    for(i = 0; i < 5; i++){
+        if(i == 4){
+            result[i] = editdis_min_all(x+dx, 10000, s+ds, strlen(s)-ds);
+        }
+        result[i] = editdis_min_all(x+dx, 10000, s+ds, 10050);
+        dx += 10000;
+        ds += result[i][10000].key;
     }
-    fileout_array2(dp, 1001, 1051);
+    int previous = 0;
+    int forward_xs[50001];
+    for(i = 0; i < 5; i++){
+        for(j = 1; j <= 10000; j++){
+            // printf("%d, %d, %d\n", j, result[i][j].key, result[i][j].value);
+            forward_xs[i*10000+j] = result[i][j].value + previous;
+        }
+        previous = forward_xs[(i+1)*10000];
+    }
+    for(i = 0; i < 50001; i++){
+        printf("%d\n", forward_xs[i]);
+    }
 }
