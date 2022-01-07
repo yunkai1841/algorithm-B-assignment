@@ -136,7 +136,16 @@ item *editdis_min_all(char a[], int na, char b[], int nb) {
                 result[i].value = dp[i][j];
             }
         } 
+        int k = result[i].key+1;
+        while(dp[i][k] == result[i].value) {
+            k++;
+            // printf("%d %d\n", k, result[i].key);
+        }
+        k--;
+        // printf("%d %d\n", k, result[i].key);
+        result[i].key = (result[i].key+k)/2;
     }
+    
     return result;
 }
 
@@ -163,8 +172,8 @@ int main(int argc, char *argv[]) {
     char x[51000], y[51000], rx[51000], ry[51000];  // correct data
     char s[51000], l[51000], rs[51000], rl[51000];  // observed data
 
-    read_data("all2/Model1/dat1/idata", x, y);  // arg[1]
-    read_data("all2/Model1/dat1/odata", s, l);  // arg[2]
+    read_data("all2/Model1/dat8/idata", x, y);  // arg[1]
+    read_data("all2/Model1/dat8/odata", s, l);  // arg[2]
     // read_data(argv[1], x, y);  // arg[1]
     // read_data(argv[2], s, l);  // arg[2]
 
@@ -259,13 +268,18 @@ int main(int argc, char *argv[]) {
     }
 
     item min_element = {1, 100000};
+    int tmp2;
     for(i = 1; i <= 50000; i++){
         // printf("%d, %d\n", forward_xs[i], backward_xl[i]);
         int tmp = forward_xs[i] + backward_xl[50001-i] + forward_yl[i] + backward_ys[50001-i];
         if(tmp < min_element.value) {
             min_element.key = i;
             min_element.value = tmp;
+            tmp2 = 0;
+        } else if (tmp == min_element.value){
+            tmp2++;
         }
     }
+    min_element.key += tmp2/2;
     printf("%d, %d\n", min_element.key, min_element.value);
 }
