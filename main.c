@@ -33,6 +33,7 @@ void fileout_array2(int *a[], int n, int m){
         }
         fprintf(fp, "\n");
     }
+    fclose(fp);
 }
 
 void strreverse(char *dest, char *src){
@@ -118,7 +119,7 @@ int editdis_min(char a[], int na, char b[], int nb) {
 item *editdis_min_all(char a[], int na, char b[], int nb) {
     int i, j;
     item *result;
-    result = (item *)malloc(sizeof(item) * na);
+    result = (item *)malloc(sizeof(item) * (na+10));
 
     // initialize result
     // value max is around 50000
@@ -127,6 +128,7 @@ item *editdis_min_all(char a[], int na, char b[], int nb) {
         result[i].value = 100000;
     }
     editdis(a, na, b, nb);
+    // fileout_array2(dp, 1000, 1000);
     for (i = 1; i <= na; i++) {
         for (j = 0; j <= nb; j++){
             if(dp[i][j] < result[i].value) {
@@ -161,8 +163,10 @@ int main(int argc, char *argv[]) {
     char x[51000], y[51000], rx[51000], ry[51000];  // correct data
     char s[51000], l[51000], rs[51000], rl[51000];  // observed data
 
-    read_data(argv[1], x, y);  // arg[1]
-    read_data(argv[2], s, l);  // arg[2]
+    read_data("all2/Model1/dat1/idata", x, y);  // arg[1]
+    read_data("all2/Model1/dat1/odata", s, l);  // arg[2]
+    // read_data(argv[1], x, y);  // arg[1]
+    // read_data(argv[2], s, l);  // arg[2]
 
     strreverse(rx, x);
     strreverse(ry, y);
