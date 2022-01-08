@@ -55,6 +55,7 @@ dkms.conf
 !*/
 !*.*
 !all2/
+!all3/
 
 .vscode/
 
