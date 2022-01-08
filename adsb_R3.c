@@ -5,9 +5,9 @@
 #define DP_ARRAY_MAX 11000
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
-#define SPLIT 1000
-#define PART 50
-#define MARGIN 50
+#define SPLIT 500
+#define PART 100
+#define MARGIN 20
 
 typedef struct item {
     int key;
