@@ -50,24 +50,12 @@ void strreverse(char *dest, char *src){
 
 #define FOPEN_ERROR -1
 #define SUCCESS 1
-
 int read_data(char filename[], char dat1[], char dat2[]) {
     FILE *fp;
     fp = fopen(filename, "r");
     if (fp == NULL) return FOPEN_ERROR;
 
     fscanf(fp, "%s%s", dat1, dat2);
-
-    fclose(fp);
-    return SUCCESS;
-}
-
-int read_answer(char filename[], int *dat1, int *dat2) {
-    FILE *fp;
-    fp = fopen(filename, "r");
-    if (fp == NULL) return FOPEN_ERROR;
-
-    fscanf(fp, "%d%d", dat1, dat2);
 
     fclose(fp);
     return SUCCESS;
@@ -151,25 +139,6 @@ item *editdis_min_all(char a[], int na, char b[], int nb) {
     }
     
     return result;
-}
-
-/*
-小さな配列が大きな配列のどの部分にあるか探索する
-! source右端の動作は保証しない
-target: 小さいchar配列
-source: 大きいchar配列
-*/
-int matching(char target[], int ntarget, char source[], int nsource) {
-    int i, j;
-    const int margin = ntarget / 10;
-    int *d;
-    d = (int *)calloc(nsource + 1, sizeof(int));
-    int min_element = 0;
-    for (i = 0; i < nsource; i++) {
-        d[i] = editdis_min(target, ntarget, source + i, ntarget + margin);
-        if (d[i] < d[min_element]) min_element = i;
-    }
-    return min_element;
 }
 
 int main(int argc, char *argv[]) {
