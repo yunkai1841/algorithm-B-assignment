@@ -3,7 +3,7 @@
 
 # 実行方法
 ```
-gcc adsb_V1.c -o run_V1 -O2 -lm
+gcc adsb_R3.c -o run_R3 -O2 -lm
 bash run.sh
 ``` 
 を実行することですべてのModelを引き数にとって実行することができます。
