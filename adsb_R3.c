@@ -256,9 +256,9 @@ int main(int argc, char *argv[]) {
     }
     min_element.key += tmp2/2;
 
-    //0.185718645, -1805.750561
+    //1.22795807	-2214.998313
     double error = min_element.value;
-    error = error * 1.185718645 - 1805.750561;
+    error = error * 1.22795807 - 2214.998313;
 
     printf("%d, %d\n", min_element.key, (int)error);
 }
