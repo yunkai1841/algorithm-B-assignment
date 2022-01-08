@@ -5,8 +5,8 @@
 #define DP_ARRAY_MAX 11000
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
-#define SPLIT 5
-#define PART 10000
+#define SPLIT 1000
+#define PART 50
 #define MARGIN 50
 
 typedef struct item {
@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
     strreverse(rl, l);
 
     int i, j;
-    item * result[5];
+    item * result[SPLIT];
     int dx, ds, previous;
     int forward_xs[50001], backward_xl[50001], forward_yl[50001], backward_ys[50001];
 
