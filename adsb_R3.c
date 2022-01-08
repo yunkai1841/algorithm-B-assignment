@@ -145,10 +145,10 @@ int main(int argc, char *argv[]) {
     char x[51000], y[51000], rx[51000], ry[51000];  // correct data
     char s[51000], l[51000], rs[51000], rl[51000];  // observed data
 
-    read_data("all2/Model1/dat8/idata", x, y);  // arg[1]
-    read_data("all2/Model1/dat8/odata", s, l);  // arg[2]
-    // read_data(argv[1], x, y);  // arg[1]
-    // read_data(argv[2], s, l);  // arg[2]
+    // read_data("all2/Model1/dat8/idata", x, y);  // arg[1]
+    // read_data("all2/Model1/dat8/odata", s, l);  // arg[2]
+    read_data(argv[1], x, y);  // arg[1]
+    read_data(argv[2], s, l);  // arg[2]
 
     strreverse(rx, x);
     strreverse(ry, y);
