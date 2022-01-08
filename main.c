@@ -5,6 +5,10 @@
 #define DP_ARRAY_MAX 11000
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
+#define SPLIT 5
+#define PART 10000
+#define MARGIN 50
+
 typedef struct item {
     int key;
     int value;
@@ -189,84 +193,85 @@ int main(int argc, char *argv[]) {
 
     // * compare x and s forward
     dx = 0; ds = 0;
-    for(i = 0; i < 5; i++){
-        if(i == 4){
-            result[i] = editdis_min_all(x+dx, 10000, s+ds, strlen(s)-ds);
+    for(i = 0; i < SPLIT; i++){
+        if(i == SPLIT-1){
+            result[i] = editdis_min_all(x+dx, PART, s+ds, strlen(s)-ds);
             break;
         }
-        result[i] = editdis_min_all(x+dx, 10000, s+ds, 10050);
-        dx += 10000;
-        ds += result[i][10000].key;
+        result[i] = editdis_min_all(x+dx, PART, s+ds, PART+MARGIN);
+        dx += PART;
+        ds += result[i][PART].key;
     }
     previous = 0;
-    for(i = 0; i < 5; i++){
-        for(j = 1; j <= 10000; j++){
+    for(i = 0; i < SPLIT; i++){
+        for(j = 1; j <= PART; j++){
             // printf("%d, %d, %d\n", j, result[i][j].key, result[i][j].value);
-            forward_xs[i*10000+j] = result[i][j].value + previous;
+            forward_xs[i*PART+j] = result[i][j].value + previous;
         }
-        previous = forward_xs[(i+1)*10000];
+        previous = forward_xs[(i+1)*PART];
     }
 
     // * compare x and l backward
     dx = 0; ds = 0;
-    for(i = 0; i < 5; i++){
-        if(i == 4){
-            result[i] = editdis_min_all(rx+dx, 10000, rl+ds, strlen(rl)-ds);
+    for(i = 0; i < SPLIT; i++){
+        if(i == SPLIT-1){
+            result[i] = editdis_min_all(rx+dx, PART, rl+ds, strlen(rl)-ds);
             break;
         }
-        result[i] = editdis_min_all(rx+dx, 10000, rl+ds, 10050);
-        dx += 10000;
-        ds += result[i][10000].key;
+        result[i] = editdis_min_all(rx+dx, PART, rl+ds, PART+MARGIN);
+        dx += PART;
+        ds += result[i][PART].key;
     }
     previous = 0;
-    for(i = 0; i < 5; i++){
-        for(j = 1; j <= 10000; j++){
+    for(i = 0; i < SPLIT; i++){
+        for(j = 1; j <= PART; j++){
             // printf("%d, %d, %d\n", j, result[i][j].key, result[i][j].value);
-            backward_xl[i*10000+j] = result[i][j].value + previous;
+            backward_xl[i*PART+j] = result[i][j].value + previous;
         }
-        previous = backward_xl[(i+1)*10000];
+        previous = backward_xl[(i+1)*PART];
     }
 
     // * compare y and l forward
     dx = 0; ds = 0;
-    for(i = 0; i < 5; i++){
-        if(i == 4){
-            result[i] = editdis_min_all(y+dx, 10000, l+ds, strlen(l)-ds);
+    for(i = 0; i < SPLIT; i++){
+        if(i == SPLIT-1){
+            result[i] = editdis_min_all(y+dx, PART, l+ds, strlen(l)-ds);
             break;
         }
-        result[i] = editdis_min_all(y+dx, 10000, l+ds, 10050);
-        dx += 10000;
-        ds += result[i][10000].key;
+        result[i] = editdis_min_all(y+dx, PART, l+ds, PART+MARGIN);
+        dx += PART;
+        ds += result[i][PART].key;
     }
     previous = 0;
-    for(i = 0; i < 5; i++){
-        for(j = 1; j <= 10000; j++){
+    for(i = 0; i < SPLIT; i++){
+        for(j = 1; j <= PART; j++){
             // printf("%d, %d, %d\n", j, result[i][j].key, result[i][j].value);
-            forward_yl[i*10000+j] = result[i][j].value + previous;
+            forward_yl[i*PART+j] = result[i][j].value + previous;
         }
-        previous = forward_yl[(i+1)*10000];
+        previous = forward_yl[(i+1)*PART];
     }
 
     // * compare y and s backward
     dx = 0; ds = 0;
-    for(i = 0; i < 5; i++){
-        if(i == 4){
-            result[i] = editdis_min_all(ry+dx, 10000, rs+ds, strlen(rs)-ds);
+    for(i = 0; i < SPLIT; i++){
+        if(i == SPLIT-1){
+            result[i] = editdis_min_all(ry+dx, PART, rs+ds, strlen(rs)-ds);
             break;
         }
-        result[i] = editdis_min_all(ry+dx, 10000, rs+ds, 10050);
-        dx += 10000;
-        ds += result[i][10000].key;
+        result[i] = editdis_min_all(ry+dx, PART, rs+ds, PART+MARGIN);
+        dx += PART;
+        ds += result[i][PART].key;
     }
     previous = 0;
-    for(i = 0; i < 5; i++){
-        for(j = 1; j <= 10000; j++){
+    for(i = 0; i < SPLIT; i++){
+        for(j = 1; j <= PART; j++){
             // printf("%d, %d, %d\n", j, result[i][j].key, result[i][j].value);
-            backward_ys[i*10000+j] = result[i][j].value + previous;
+            backward_ys[i*PART+j] = result[i][j].value + previous;
         }
-        previous = backward_ys[(i+1)*10000];
+        previous = backward_ys[(i+1)*PART];
     }
 
+    // * 席替え位置を求める
     item min_element = {1, 100000};
     int tmp2;
     for(i = 1; i <= 50000; i++){
