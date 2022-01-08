@@ -5,9 +5,9 @@
 #define DP_ARRAY_MAX 11000
 int dp[DP_ARRAY_MAX][DP_ARRAY_MAX];
 
-#define SPLIT 1000
-#define PART 50
-#define MARGIN 50
+#define SPLIT 500
+#define PART 100
+#define MARGIN 20
 
 typedef struct item {
     int key;
@@ -60,6 +60,17 @@ int read_data(char filename[], char dat1[], char dat2[]) {
     fclose(fp);
     return SUCCESS;
 }
+int read_answer(char filename[], char *c){
+    FILE *fp;
+    fp = fopen(filename, "r");
+    if(fp == NULL) return FOPEN_ERROR;
+
+    fscanf(fp, "%s", c);
+
+    fclose(fp);
+    return SUCCESS;
+}
+
 
 /*
 文字列a, bの編集距離を求める
@@ -255,5 +266,10 @@ int main(int argc, char *argv[]) {
         }
     }
     min_element.key += tmp2/2;
-    printf("%d, %d\n", min_element.key, min_element.value);
+    //0.185718645, -1805.750561
+    printf("%d,%d,", min_element.key, min_element.value);
+    char c[100];
+    read_answer(argv[3], c);
+    printf("%s,\n", c);
+    return 0;
 }
