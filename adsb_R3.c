@@ -232,4 +232,5 @@ int main(int argc, char *argv[]) {
     error = error * 1.22795807 - 2214.998313;
 
     printf("%d, %d\n", min_element.key, (int)error);
+    return 0;
 }
